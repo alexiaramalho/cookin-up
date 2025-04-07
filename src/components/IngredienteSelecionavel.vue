@@ -18,9 +18,12 @@ export default{
             if (this.selecionado){
                 this.$emit('adicionarIngrediente', this.ingrediente);
             }
+            else{
+                this.$emit('removerIngrediente', this.ingrediente)
+            }
         }
     },
-    emits: ['adicionarIngrediente'] //boa prática ao utilizar eventos personalizados, que ajuda a prevenir erros
+    emits: ['adicionarIngrediente','removerIngrediente'] //boa prática ao utilizar eventos personalizados, que ajuda a prevenir erros
 }
 
 </script>
@@ -31,3 +34,9 @@ export default{
         <Tag :texto="ingrediente" :ativa="selecionado"/>
     </button>
 </template>
+
+<style scoped>
+.ingrediente{
+    cursor: pointer
+}
+</style>

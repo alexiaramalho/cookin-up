@@ -10,7 +10,7 @@ export default {
     categoria: { type: Object as PropType<ICategoria>, required: true }, //o Vue nao entende tipos typescript, então diz que categoria é do tipo objeto e deve seguir a estrutura da interface// required indica que essa prop é obrigatória
   },
   components: {Tag, IngredienteSelecionavel},
-  emits: ['']
+  emits: ['adicionarIngrediente', 'removerIngrediente']
 };
 </script>
 
@@ -24,7 +24,7 @@ export default {
 
     <ul class="categoria__ingredientes">
       <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente">
-      <IngredienteSelecionavel :ingrediente="ingrediente" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"/>
+      <IngredienteSelecionavel :ingrediente="ingrediente" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" @remover-ingrediente="$emit('removerIngrediente', $event)"/>
       </li>
     </ul>
   </article>

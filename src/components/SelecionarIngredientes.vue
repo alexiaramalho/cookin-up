@@ -2,8 +2,10 @@
 import { obterCategorias } from "@/http";
 import type ICategoria from "@/interfaces/ICategoria";
 import CardCategoria from "./CardCategoria.vue";
+import BotaoPrincipal from "./BotaoPrincipal.vue";
 
 export default {
+  name: 'SelecionarIngredientes',
   data(vm) {
     return {
       categorias: [] as ICategoria[],
@@ -13,8 +15,8 @@ export default {
   async created() {
     this.categorias = await obterCategorias();
   },
-  components: { CardCategoria },
-  emits:['adicionarIngrediente']
+  components: { CardCategoria, BotaoPrincipal },
+  emits:['adicionarIngrediente', 'removerIngrediente', 'buscaReceitas']
 };
 </script>
 
@@ -28,7 +30,7 @@ export default {
       <!-- v-for vai percorrer a array e criar uma variavel 'categoria' para cada item. :key irá atribuir um key unico para cada item -->
       <li v-for="categoria in categorias" :key="categoria.nome"> 
         <!-- passando o valor da variavel "categoria" para a prop :categoria -->
-        <CardCategoria :categoria="categoria" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" />
+        <CardCategoria :categoria="categoria" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)" @remover-ingrediente="$emit('removerIngrediente', $event)"/>
       </li>
     </ul>
 
@@ -38,6 +40,7 @@ export default {
       </p>
     </ul>
   </section>
+  <BotaoPrincipal texto="Buscar receitas!" @click="$emit('buscarReceitas')"/>
 </template>
 
 <style scoped>
